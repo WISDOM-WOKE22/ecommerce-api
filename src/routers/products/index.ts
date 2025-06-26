@@ -6,10 +6,15 @@ import {
   getAProduct,
   updateProduct,
 } from "../../controllers/products";
+import { validateData } from "../../middlewares/validation";
+import { productSchema } from "../../db/schemas/productSchema";
 
 const router = Router();
 
-router.route("/").get(getAllProducts).post(createProduct);
+router
+  .route("/")
+  .get(getAllProducts)
+  .post(validateData(productSchema), createProduct);
 
 router
   .route("/:id")
